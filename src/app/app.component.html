@@ -1,0 +1,36 @@
+
+<div class="container">
+  <div class="form-part">
+    <form [formGroup]="UrlshortnerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label  class="text-center">Enter a url to shorten:</label>
+        <input type="text" class="form-control" placeholder="use http:// https:// " formControlName="long_url" [ngClass]="{ 'is-invalid': submitted && f.long_url.errors }" (input)="checkContent()" required >
+        <div *ngIf="submitted && f.long_url.errors" class="invalid-feedback white_text">
+          <div *ngIf="f.long_url.errors.required " >Please enter url..</div>
+        </div>
+      </div>
+      <span *ngIf="error_msg" class="text-danger font-italic font-weight-bolder">{{error_msg}} </span>
+
+      <div class="form-actions">
+        <div *ngIf="processing"  class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>&nbsp;
+        <button type="submit" class="btn btn-danger">Shorten it!</button>
+
+      </div>
+    </form>
+  </div>
+  <br><br>
+
+
+
+  <p *ngIf="shortenedUrl; else showDummyText" class="text-center text-warning font-italic  font-weight-bolder show-big"><a  [href]="shortenedUrl" target="_blank" style="color:white">{{shortenedUrl}}</a></p>
+  <ng-template #showDummyText><p class="text-center font-italic text-warning font-weight-bold show-big" >Your Short Url will appear here...</p></ng-template>
+
+
+</div>
+
+
+
+
+<router-outlet></router-outlet>
